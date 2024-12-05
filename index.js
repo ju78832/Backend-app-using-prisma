@@ -1,13 +1,20 @@
+const cookieParser = require("cookie-parser");
 const express = require("express");
-const cookieparser = require("cookie-parser");
+
 require("dotenv").config();
 const app = express();
 
 // middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
-app.use(cookieparser());
+app.use(cookieParser());
+
+const userRouter = require("./routes/userRoute");
+const postRoute = require("./routes/postRoute");
+
+app.use("/api", userRouter);
+app.use("/api", postRoute);
 
 app.get("/", (req, res) => {
   res.send("Hi! I m Juned");
